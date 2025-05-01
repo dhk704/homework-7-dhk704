@@ -23,7 +23,9 @@ public:
 
     StringQueue(StringQueue&& other);
 
+    // Copy assignment operator
     StringQueue& operator=(const StringQueue& rhs);
+
     StringQueue& operator=(StringQueue&& rhs);
 
     // Returns the number of elements in the queue
@@ -39,7 +41,5 @@ public:
 
     friend std::ostream& operator<<(std::ostream& lhs, const StringQueue& rhs);
 };
-
-
 
 #endif //STRINGQUEUE_H
