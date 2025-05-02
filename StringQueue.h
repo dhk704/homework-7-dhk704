@@ -11,21 +11,26 @@ class StringQueue {
     size_t m_count = {0};
     // The index of where the "front" element is stored, initially 0.
     size_t m_front = {0};
-    // The index of where the next element to be enqueued will be placed, initially 0.
-    size_t m_rear = {0};
+    // The index of where the next element to be enqueued will be placed; changed to int type and -1 to account for having empty queue
+    int m_rear = {-1};
 
 public:
+    // Default constructor
     StringQueue();
+
     // Destructor that frees the m_data array
     ~StringQueue();
+
     // Copy constructor that performs a deep copy of its parameter
     StringQueue(const StringQueue& other);
 
+    // Move Constructor
     StringQueue(StringQueue&& other);
 
     // Copy assignment operator
     StringQueue& operator=(const StringQueue& rhs);
 
+    // Move assignment operator
     StringQueue& operator=(StringQueue&& rhs);
 
     // Returns the number of elements in the queue
@@ -33,6 +38,11 @@ public:
     // Returns the number of elements that could be added to the queue without requiring it to resize.
     size_t capacity() const;
 
+    // Getter Functions to satisfy Test 3
+    size_t get_front() const { return m_front; }
+    int get_rear() const { return m_rear; }
+
+    // Reset values
     void clear();
     // First resizes the queue if its capacity is 0; and then moves the value into m_data at the index specified by m_rear. m_rear is incremented, resetting back to 0 if it has reached the end of the data array
     void enqueue(std::string value);
