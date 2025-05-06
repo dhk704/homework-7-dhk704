@@ -12,7 +12,7 @@ class StringQueue {
     // The index of where the "front" element is stored, initially 0.
     size_t m_front = {0};
     // The index of where the next element to be enqueued will be placed; changed to int type and -1 to account for having empty queue
-    int m_rear = {-1};
+    size_t m_rear = {0};
 
 public:
     // Default constructor
@@ -38,7 +38,8 @@ public:
     // Returns the number of elements that could be added to the queue without requiring it to resize.
     size_t capacity() const;
 
-    // Getter Functions to satisfy Test 3
+    // Getter Functions to satisfy Test 3 and error handling for empty queue
+    size_t get_count() const { return m_count; }
     size_t get_front() const { return m_front; }
     int get_rear() const { return m_rear; }
 

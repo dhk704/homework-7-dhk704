@@ -1,3 +1,3 @@
-C:/Schoolwork/cecs325/homework-7-dhk704/cmake-build-debug/CMakeFiles/homework_7_dhk704.dir
-C:/Schoolwork/cecs325/homework-7-dhk704/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Schoolwork/cecs325/homework-7-dhk704/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/cecs325/homework-7-dhk704/cmake-build-debug/CMakeFiles/homework_7_dhk704.dir
+C:/cecs325/homework-7-dhk704/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/cecs325/homework-7-dhk704/cmake-build-debug/CMakeFiles/rebuild_cache.dir

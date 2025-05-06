@@ -9,7 +9,7 @@
 					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.31"
+						"string" : "3.30.5"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Schoolwork/cecs325/homework-7-dhk704/cmake-build-debug",
-		"source" : "C:/Schoolwork/cecs325/homework-7-dhk704"
+		"build" : "C:/cecs325/homework-7-dhk704/cmake-build-debug",
+		"source" : "C:/cecs325/homework-7-dhk704"
 	},
 	"version" : 
 	{

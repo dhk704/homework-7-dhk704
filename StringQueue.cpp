@@ -7,10 +7,9 @@
 // DEFAULT CONSTRUCTOR
 StringQueue::StringQueue()
     : m_data(new std::string[8]),
-      m_dataSize(8),
-      m_count(0),
-      m_front(0),
-      m_rear(-1) { }
+      m_dataSize(8) {
+    clear();
+}
 
 // DESTRUCTOR
 StringQueue::~StringQueue() {
@@ -38,6 +37,7 @@ StringQueue::StringQueue(StringQueue &&other)
       m_rear{other.m_rear} {
     other.m_data = nullptr;
     other.m_dataSize = 0;
+    // FIX: Bryan mentioned don't use clear function? But assignment requires usage?
     other.clear();
 }
 
@@ -49,12 +49,14 @@ StringQueue& StringQueue::operator=(const StringQueue& rhs) {
     }
 
     // Free m_data array
-    delete[] m_data;
-    m_data = new std::string[m_dataSize];
     m_count = rhs.m_count;
     m_dataSize = rhs.m_dataSize;
     m_front = rhs.m_front;
     m_rear = rhs.m_rear;
+
+    delete[] m_data;
+    m_data = new std::string[m_dataSize];
+
 
     // Override lhs with deep copy of rhs
     for (size_t i = 0; i < m_dataSize; ++i) {
@@ -69,18 +71,18 @@ StringQueue& StringQueue::operator=(StringQueue &&rhs) {
         return *this;
     }
 
-    // Delete current array
+    // Delete current lhs array
     delete[] m_data;
 
     // Take over rhs array via shallow copy
-    std::swap(m_data, rhs.m_data);
-    std::swap(m_dataSize, rhs.m_dataSize);
-    std::swap(m_count, rhs.m_count);
-    std::swap(m_front, rhs.m_front);
-    std::swap(m_rear, rhs.m_rear);
+    m_count = rhs.m_count;
+    m_dataSize = rhs.m_dataSize;
+    m_front = rhs.m_front;
+    m_rear = rhs.m_rear;
 
     // Reset rhs' values without making it delete array
     rhs.m_data = nullptr;
+    rhs.m_dataSize = 0;
     rhs.m_dataSize = 0;
     rhs.clear();
 
@@ -100,7 +102,7 @@ size_t StringQueue::capacity() const {
 void StringQueue::clear() {
     m_count = 0;
     m_front = 0;
-    m_rear = -1;
+    m_rear = 0;
 }
 
 void StringQueue::enqueue(std::string value) {
@@ -118,13 +120,20 @@ void StringQueue::enqueue(std::string value) {
         delete[] m_data;
         m_data = newData;
         m_front = 0;
+        ++m_count;
         m_rear = m_count - 1;
     }
 
     // Use modulus to account for m_rear reaching capacity of queue, and loop back to 0.
-    m_rear = (m_rear + 1) % m_dataSize;
+    if (m_count == 0)
+    {
+        clear();
+    }
+    else
+    {
+        m_rear = (m_rear + 1) % m_dataSize;
+    }
     m_data[m_rear] = std::move(value);
-
     // Increment m_count as # of elements have increased
     ++m_count;
 }
@@ -146,6 +155,12 @@ std::string StringQueue::dequeue() {
 }
 
 std::ostream& operator<<(std::ostream& os, const StringQueue& rhs) {
+    // ERROR HANDLE FOR EMPTY QUEUE
+    if (rhs.m_count == 0)
+    {
+        // Indicate if queue is empty
+        throw std::runtime_error("Queue is empty.");
+    }
     for (size_t i = 0; i < rhs.m_count; ++i) {
         if (i != 0) {
             os << ", ";
