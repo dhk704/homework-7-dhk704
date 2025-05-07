@@ -25,6 +25,15 @@ int main() {
         q1.enqueue("X");
 
         printQueueState(q1);  // [1, 2, 3, 4, 5, X]
+
+        std::cout << "Dequeuing 3 more values: ";
+        for (int i = 0; i < 3; i++) {
+            std::cout << q1.dequeue() << " ";
+        }
+        std::cout << "\nEnqueuing test value...\n";
+        q1.enqueue("Y");    // [4, 5, 6, X, Y]
+
+        printQueueState(q1);
     }
 
     // Test 2: Resize Test
@@ -32,14 +41,14 @@ int main() {
         std::cout << "\n=== TEST 2: RESIZING ===\n";
         StringQueue q2;
 
-        std::cout << "Queue up to capacity:\n";
-        for (int i = 0; i < 8; i++) {
+        std::cout << "Queue over capacity:\n";
+        for (int i = 0; i < 9; i++) {
             // Fill queue to near capacity
             q2.enqueue(std::to_string(i));
         }
 
         // Display current queue and front index
-        printQueueState(q2);  // [0, 1, 2, 3, 4, 5, 6, 7]
+        printQueueState(q2);  // [0, 1, 2, 3, 4, 5, 6, 7, 8]
     }
 
     // Test 3: Resize Test
@@ -49,18 +58,18 @@ int main() {
 
         std::cout << "Queue up to capacity:\n";
         for (int i = 0; i < 8; i++) {
-            // Fill queue to near capacity
+            // Fill queue to capacity
             q3.enqueue(std::to_string(i));
         }
         printQueueState(q3);  // [0, 1, 2, 3, 4, 5, 6, 7]
 
-        std::cout << "Dequeue until no values are left:\n";
+        std::cout << "Dequeuing until no values are left:\n";
         // Force wrap-around by dequeuing 1 and enqueuing 1 more
         for (int i = 0; i < 8; i++) {
-            q3.dequeue();
+            std::cout << q3.dequeue() << " ";
         }
 
-        std::cout << "Enqueuing test value...\n";
+        std::cout << "\nEnqueuing test value...\n";
         q3.enqueue("X");
         printQueueState(q3);
 
@@ -76,12 +85,12 @@ int main() {
         std::string sky = "blue";
         if (sky == "blue") {
             StringQueue qT1 = q4;  // Copy constructor
-            std::cout << "Copied Queue:\n";
+            std::cout << "Copied ";
             printQueueState(qT1);  // [Alpha, Beta]
         }
 
-        std::cout << "Copied Queue now out of scope. Checking Original Queue:\n";
-        printQueueState(q4);
+        std::cout << "Copied Queue now out of scope. Checking Original Queue.\n";
+        printQueueState(q4); // [Alpha, Beta]
     }
 
     // Test 5: Temporary Move assignment
@@ -97,8 +106,11 @@ int main() {
             qT2.enqueue("Temporary");
             qT2.enqueue("Queue");
 
+            std::cout << "Displaying Temporary Queue.\n";
+            printQueueState(qT2);
+
             q5 = std::move(qT2);     // Move assignment
-            std::cout << "Move-Assign Queue (temp):\n";
+            std::cout << "Move-Assigning temporary Queue to existing (q5):\nDisplaying state before going out of scope.\n";
             printQueueState(q5);    // [Testing, Temporary, Queue]
         }
 

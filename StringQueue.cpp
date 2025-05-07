@@ -80,6 +80,10 @@ StringQueue& StringQueue::operator=(StringQueue &&rhs) {
     m_front = rhs.m_front;
     m_rear = rhs.m_rear;
 
+    for (size_t i = 0; i < m_dataSize; i++) {
+        m_data[i] = rhs.m_data[i];
+    }
+
     // Reset rhs' values without making it delete array
     rhs.m_data = nullptr;
     rhs.m_dataSize = 0;
@@ -120,8 +124,6 @@ void StringQueue::enqueue(std::string value) {
         delete[] m_data;
         m_data = newData;
         m_front = 0;
-        ++m_count;
-        m_rear = m_count - 1;
     }
 
     // Use modulus to account for m_rear reaching capacity of queue, and loop back to 0.
